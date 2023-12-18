@@ -66,5 +66,5 @@ server.listen(PORT, IP, (err) => {
   if (err) {
     console.error('Error starting server:', err);
   } else {
-  console.log(`Server is running at https://${IP}:${PORT}/`);
+  console.log(`Server opens on /${IP}:${PORT}/`);
 }});
