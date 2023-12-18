@@ -8,7 +8,7 @@ const http = require("http");
 
 const app = express();
 //Constants for server configuration
-const PORT = 2000;
+const PORT = 3000;
 const IP = "0.0.0.0";  
 
 // Middlewares
