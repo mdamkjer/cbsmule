@@ -62,9 +62,6 @@ app.use("/api/users", userProfileRoute);
 // });
 
 // Start the server
-server.listen(PORT, IP, (err) => {
-  if (err) {
-    console.error('Error starting server:', err);
-  } else {
-  console.log(`Server opens on http://${IP}:${PORT}`);
-}});
+http.listen(PORT, IP, () => {
+  console.log(`Server opens on ${IP}:${PORT}`);
+});
