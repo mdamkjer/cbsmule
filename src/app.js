@@ -8,7 +8,7 @@ const http = require("http");
 
 const app = express();
 //Constants for server configuration
-const PORT = 3000;
+const PORT = 2000;
 const IP = "0.0.0.0";  
 
 // Middlewares
@@ -66,5 +66,5 @@ server.listen(PORT, IP, (err) => {
   if (err) {
     console.error('Error starting server:', err);
   } else {
-  console.log(`Server opens on ${IP}:${PORT}`);
+  console.log(`Server opens on http://${IP}:${PORT}`);
 }});
