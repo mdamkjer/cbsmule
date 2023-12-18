@@ -3,12 +3,13 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { Server } = require("socket.io");
-const { MessagingResponse } = require("twilio").twiml;
+//const { MessagingResponse } = require("twilio").twiml; UPDATE THIS BUT HAVE TO INSTALL AND THEN PUT THE CODE BACK IN REPOSITORY
+const http = require("http");
 
 const app = express();
 //Constants for server configuration
-const port = process.env.PORT || 2000;
-const host = "www.cbsmule.live";
+const PORT = 2000;
+const IP = "0.0.0.0";  
 
 // Middlewares
 app.use(cors());
@@ -45,22 +46,25 @@ app.get("/userProfile", (req, res) => {
 app.use(loginRoute);
 
 // Add the chat route to the app
-app.use('/chat', chatRoute(io));
+//app.use('/chat', chatRoute(io));
 chatRoute(io);
 
 // Mount userProfileRoute routes
 app.use("/api/users", userProfileRoute);
 
-// Sample Twilio route
-app.post("/events/sms", (req, res) => {
-  const twiml = new MessagingResponse();
-  twiml.message(
-    "CBSmule har modtaget din besked. Vi vender tilbage hurtigst muligt."
-  );
-  res.type("text/xml").send(twiml.toString());
-});
+// Sample Twilio route UPDATE THIS BUT HAVE TO INSTALL AND THEN PUT THE CODE BACK IN REPOSITORY
+// app.post("/events/sms", (req, res) => {
+//   const twiml = new MessagingResponse();
+//   twiml.message(
+//     "CBSmule har modtaget din besked. Vi vender tilbage hurtigst muligt."
+//   );
+//   res.type("text/xml").send(twiml.toString());
+// });
 
 // Start the server
-server.listen(port, host, () => {
-  console.log(`Server is running at https://${host}:${PORT}/`);
-});
+server.listen(PORT, IP, (err) => {
+  if (err) {
+    console.error('Error starting server:', err);
+  } else {
+  console.log(`Server is running at https://${IP}:${PORT}/`);
+}});
