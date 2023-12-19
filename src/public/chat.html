@@ -27,79 +27,16 @@
             </div>
         </div>
     </main>
-    <div class="content">
-        <h1>Chat with your friends</h1>
-        <div id="chat-container">
-            <div id="friends-container">
-                <label for="friendsDropdown">Select Friend:</label>
-                <select id="friendsDropdown"></select>
-            </div>
-
-            <div class="chatters__container">
-                <h3>Online Chatters</h3>
-                <div id="chatters"></div>
-            </div>
-
-            <div id="chat-box">
-                <div id="messagesContainer"></div>
-                <form action="#" id="chat-input-container">
-                    <input type="text" id="messageInput" placeholder="Type your message...">
-                    <button id="sendMessageButton">Send</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Add these dropdowns within the friends-container -->
-    <div id="friends-container">
-        <label for="favoritejuice-field">Favorite Juice:</label>
-        <select name="favoritejuice" id="favoritejuice-field" class="signup-form-field" autocomplete="off">
-            <option value="Go Away DOC">Go Away DOC</option>
-            <option value="Energizer">Energizer</option>
-            <option value="Sports Juice">Sports Juice</option>
-            <option value="JOEs AMG">JOEs AMG</option>
-            <option value="Green Tonic">Green Tonic</option>
-            <option value="Prince of Green">Prince of Green</option>
-            <option value="Hell Of A Nerve">Hell Of A Nerve</option>
-            <option value="Iron Man">Iron Man</option>
-            <option value="Pick Me Up">Pick Me Up</option>
-            <option value="Stress Down">Stress Down</option>
-        </select>
-
-        <label for="favoritecoffee-field">Favorite Coffee:</label>
-        <select name="favoritecoffee" id="favoritecoffee-field" class="signup-form-field" autocomplete="off">
-            <option value="Latte">Latte</option>
-            <option value="Flat White">Flat White</option>
-            <option value="Espresso Macchiato">Espresso Macchiato</option>
-            <option value="Cappucino">Cappucino</option>
-            <option value="Americano">Americano</option>
-            <option value="Espresso">Espresso</option>
-            <option value="Iced Latte">Iced Latte</option>
-            <option value="Iced Americano">Iced Americano</option>
-            <option value="Matcha Oat Latte">Matcha Oat Latte</option>
-            <option value="Iced Matcha Oat Latte">Iced Matcha Oat Latte</option>
-        </select>
-
-        <label for="favoritesandwich-field">Favorite Sandwich:</label>
-        <select name="favoritesandwich" id="favoritesandwich-field" class="signup-form-field" autocomplete="off">
-            <option value="JOEs Club">JOEs Club</option>
-            <option value="Avocado">Avocado</option>
-            <option value="Tunacado">Tunacado</option>
-            <option value="Spicy Tuna">Spicy Tuna</option>
-            <option value="Serrano">Serrano</option>
-            <option value="Turkey">Turkey</option>
-            <option value="VAVO (Vegan Avocado)">VAVO (Vegan Avocado)</option>
-        </select>
-
-        <!-- Display a list of friends matching the same favorites -->
-        <div id="matching-friends">
-            <h3>Matching Friends</h3>
-            <ul id="matchingFriendsList"></ul>
-        </div>
-    </div>
-    </div>
+    <div id="chat-container">
+        <ul id="messages"></ul>
+        <form id="chat-form">
+          <input type="text" id="message-input" placeholder="Type your message...">
+          <button type="submit">Send</button>
+        </form>
+      </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
 <script src="/js/chat.js"></script>
 
 </html>

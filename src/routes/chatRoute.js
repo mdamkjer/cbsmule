@@ -1,42 +1,27 @@
 module.exports = (io) => {
-  const connectedUsers = new Map();
-  const chatMessages = []; // Array to store chat messages
+  const coffeeLovers = new Set();
+  const juiceLovers = new Set();
+  const sandwichLovers = new Set();
 
   io.on("connection", (socket) => {
     console.log("A user connected");
 
-    socket.on("user joined", (username) => {
+    socket.on("join_chat", (username) => {
       console.log(`${username} joined the chat`);
-      connectedUsers.set(socket.id, username);
-      io.emit("addChatter_private", username);
+      socket.username = username;
     });
 
-    socket.on("new_message_private", (message) => {
-      console.log(`${message.username}: ${message.message}`);
-      chatMessages.push(message); // Store the new message in the array
+    socket.on("send_message", (data) => {
+      console.log(`${data.username}: ${data.message}`);
+      io.emit("receive_message", { username: data.username, message: data.message });
+    });
 
-      // Emit the message to everyone except the sender
-      socket.broadcast.emit("new_message_private", message);
+    socket.on("leave_chat", (username) => {
+      console.log(`${username} left the chat`);
     });
 
     socket.on("disconnect", () => {
-      const username = connectedUsers.get(socket.id);
-
-      if (username) {
-        console.log(`${username} disconnected`);
-        connectedUsers.delete(socket.id);
-        io.emit("removeChatter_private", username);
-      }
-    });
-
-    socket.on("messages_private", (username) => {
-      // Fetch messages for the specific user
-      const userMessages = chatMessages.filter(
-        (message) => message.recipient === username || message.username === username
-      );
-
-      // Send messages to the user
-      io.to(socket.id).emit("messages_private", userMessages);
+      console.log("A user disconnected");
     });
   });
 };
