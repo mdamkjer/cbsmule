@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 });
 
 // Sample route to serve the login.html file
-app.get("/loginRoute", (req, res) => {
+app.get("/login", (req, res) => { //loginRoute was before
   res.sendFile(path.join(__dirname, "./public/login.html"));
 });
 
