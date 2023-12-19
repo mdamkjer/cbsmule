@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="/src/public/css/style.css">
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script src="/src/public/js/chat.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 
     <title>Index side</title>
 </head>
@@ -16,15 +12,15 @@
     <main>
         <div class="topbar">
             <div class="menu">
-                <a href="/src/public/index.html">Home</a>
-                <a href="/src/public/chat.html">Chat</a>
-                <a href="/src/public/events.html">Events</a>
-                <a href="/src/public/findFriends.html">Friends</a>
+                <a href="/index.html">Home</a>
+                <a href="/chat.html">Chat</a>
+                <a href="/events.html">Events</a>
+                <a href="/findFriends.html">Friends</a>
             </div>
             <div id="account">
-                <a href="/src/public/userProfile.html" id="profile-button">Profil</a>
+                <a href="/userProfile.html" id="profile-button">Profil</a>
                 <i id="profile-icon" class="fa fa-user"></i>
-                <a href="/src/public/login.html" id="log-out">Log ud<i class="fa fa-sign-out"></i></a>
+                <a href="/login.html" id="log-out">Log ud<i class="fa fa-sign-out"></i></a>
             </div>
         </div>
     </main>
@@ -99,4 +95,7 @@
     </div>
 </div>  
 </body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script src="/js/chat.js"></script>
 </html>
