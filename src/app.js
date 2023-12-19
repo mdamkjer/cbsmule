@@ -7,9 +7,6 @@ const { Server } = require("socket.io");
 const http = require("http");
 
 const app = express();
-//Constants for server configuration
-const PORT = 2000;
-const IP = "0.0.0.0";  
 
 // Middlewares
 app.use(cors());
@@ -30,6 +27,11 @@ const userProfileRoute = require("./routes/userProfileRoute.js");
 // Sample route for checking if the server is alive
 app.get("/alive", async (req, res) => {
   res.status(200).send("It is alive!");
+});
+
+// Sample route to serve the index.html file
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 // Sample route to serve the login.html file
@@ -63,7 +65,11 @@ app.use("/api/users", userProfileRoute);
 //   res.type("text/xml").send(twiml.toString());
 // });
 
+//Server
+// Determine the port dynamically or use a default port
+const port = process.env.PORT || 2000;
+
 // Start the server
-server.listen(PORT, IP, () => {
-  console.log(`Server opens on ${IP}:${PORT}`);
+server.listen(port, () => {
+  console.log(`Server opens on port ${port}`);
 });
