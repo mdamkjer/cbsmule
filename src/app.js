@@ -33,7 +33,7 @@ app.get("/alive", async (req, res) => {
 });
 
 // Sample route to serve the login.html file
-app.get("/", (req, res) => {
+app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/login.html"));
 });
 
@@ -42,10 +42,10 @@ app.get("/userProfile", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/userProfile.html"));
 });
 
-// Add routes for login.html
-app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/login.html"));
-});
+// Add routes for events.html NOT IN THE FRONTEND YET
+// app.get("/events", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./public/events.html"));
+// });
 
 // Add the chat route to the app
 //app.use('/chat', chatRoute(io));
