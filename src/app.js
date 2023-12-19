@@ -8,7 +8,7 @@ const http = require("http");
 
 const app = express();
 //Constants for server configuration
-const PORT = 2000;
+const PORT = 80; //ændret fra 2000 til 80
 const IP = "0.0.0.0";
 
 // Middlewares
