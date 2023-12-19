@@ -7,6 +7,9 @@ const { Server } = require("socket.io");
 const http = require("http");
 
 const app = express();
+//Constants for server configuration
+const PORT = 2000;
+const IP = "0.0.0.0";
 
 // Middlewares
 app.use(cors());
@@ -68,11 +71,7 @@ app.use("/api", loginRoute);
 //   res.type("text/xml").send(twiml.toString());
 // });
 
-//Server
-// Determine the port dynamically or use a default port
-const port = process.env.PORT || 2000;
-
 // Start the server
-server.listen(port, () => {
-  console.log(`Server opens on port ${port}`);
+server.listen(PORT, IP, () => {
+  console.log(`Server opens on ${PORT}:${IP}`);
 });
