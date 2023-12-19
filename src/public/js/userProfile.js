@@ -53,7 +53,7 @@ function updateUserData() {
     .catch((error) => console.error("Error:", error));
 
   // Redirect to chat page after saving
-  location.href = "/src/public/chat.html";
+  location.href = "/public/chat.html";
 }
 
 // Function to delete user
@@ -129,7 +129,7 @@ function createUser() {
       }
 
       // Redirect to chat page after user creation
-      location.href = "/src/public/chat.html";
+      location.href = "/public/chat.html";
     })
     .catch((error) => console.error("Error:", error));
 }

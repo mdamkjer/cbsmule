@@ -51,6 +51,11 @@ app.get("/userProfile", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/userProfile.html"));
 });
 
+//Add a route for chat.html
+app.get("/userProfile", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/chat.html"));
+});
+
 // Add routes for events.html NOT IN THE FRONTEND YET
 // app.get("/events", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./public/events.html"));

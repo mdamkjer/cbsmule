@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Check if username is not found in cookies
   if (!username) {
   // Redirect to the login page or perform any other action
-  location.href = "/src/public/login.html"; // Change "/login" to your actual login page
+  location.href = "/public/login.html"; // Change "/login" to your actual login page
 }
 
 
