@@ -33,7 +33,7 @@ app.get("/alive", async (req, res) => {
 });
 
 // Sample route to serve the login.html file
-app.get("/login", (req, res) => {
+app.get("/loginRoute", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/login.html"));
 });
 
