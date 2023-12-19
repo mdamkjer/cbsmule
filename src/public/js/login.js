@@ -41,5 +41,5 @@ document.getElementById('login-form-submit').addEventListener('click', function(
    event.preventDefault(); // Prevent the form from submitting and refreshing the page
   
    // Redirect the user to the user profile page
-   window.location.href = '/src/public/userProfile.html';
+   window.location.href = '/public/userProfile.html';
   });
