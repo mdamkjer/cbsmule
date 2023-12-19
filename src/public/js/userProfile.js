@@ -43,8 +43,8 @@ function updateUserData() {
         // Update successful
         console.log("Update successful");
 
-        // Set a cookie for the user
-        setCookie("UserName=", data.UserID, 7); // Adjust the cookie expiration as needed
+        // Set a cookie for the userAuth
+        setCookie("userAuth", username, 7); // Adjust the cookie expiration as needed
       } else {
         // Update failed
         console.log("Update failed");
@@ -52,8 +52,8 @@ function updateUserData() {
     })
     .catch((error) => console.error("Error:", error));
 
-  // Redirect to index page after saving
-  location.href = "/src/public/index.html"; 
+  // Redirect to chat page after saving
+  location.href = "/src/public/chat.html";
 }
 
 // Function to delete user
@@ -77,9 +77,9 @@ function deleteUser() {
         // Deletion successful
         console.log("Deletion successful");
 
-        // Remove the user_id cookie upon deletion
+        // Remove the userAuth cookie upon deletion
         document.cookie =
-          "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          "userAuth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       } else {
         // Deletion failed
         console.log("Deletion failed");
@@ -121,15 +121,15 @@ function createUser() {
         // Creation successful
         console.log("User creation successful");
 
-        // Set a cookie for the new user
-        setCookie("username=", data.UserID, 7); // Adjust the cookie expiration as needed
+        // Set a cookie for the new userAuth
+        setCookie("userAuth", username, 7); // Adjust the cookie expiration as needed
       } else {
         // Creation failed
         console.log("User creation failed");
       }
 
-      // Redirect to index page after user creation
-      location.href = "/src/public/index.html";
+      // Redirect to chat page after user creation
+      location.href = "/src/public/chat.html";
     })
     .catch((error) => console.error("Error:", error));
 }

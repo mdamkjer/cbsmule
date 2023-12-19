@@ -56,6 +56,9 @@ chatRoute(io);
 // Mount userProfileRoute routes
 app.use("/api/users", userProfileRoute);
 
+//Routes for login
+app.use("/api", loginRoute);
+
 // Sample Twilio route UPDATE THIS BUT HAVE TO INSTALL AND THEN PUT THE CODE BACK IN REPOSITORY
 // app.post("/events/sms", (req, res) => {
 //   const twiml = new MessagingResponse();

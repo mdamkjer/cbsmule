@@ -29,10 +29,10 @@ module.exports = (io) => {
       }
     });
 
-    socket.on("fetchMessages_private", (username) => {
+    socket.on("messages_private", (username) => {
       // Fetch messages for the specific user
       const userMessages = chatMessages.filter(
-        (message) => message.username === username
+        (message) => message.recipient === username || message.username === username
       );
 
       // Send messages to the user

@@ -40,7 +40,7 @@ router.post("/api/login", async (req, res) => {
 
       if (isPasswordValid) {
         // Set a cookie with the username
-        res.cookie("Username", username, {
+        res.cookie("userAuth", username, {
           expires: new Date(Date.now() + 31536000000),
           httpOnly: true,
         });

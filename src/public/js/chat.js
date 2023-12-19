@@ -1,47 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Connect to the Socket.IO server
-  const socket = io.connect();
+  const socket = io();
 
-  // Retrieve username from cookies or prompt for it
-  let username = getCookie("Username");
+  // Retrieve username from cookies
+  let username = getCookie("userAuth");
+
+  // Check if username is not found in cookies
   if (!username) {
-    username = prompt("Please enter your username:");
-    setCookie("Username", username, 7);
-  }
+  // Redirect to the login page or perform any other action
+  location.href = "/src/public/login.html"; // Change "/login" to your actual login page
+}
 
-  // Emit the join_private event with the username
-  socket.emit("join_private", username);
+
+  // Emit the user joined event with the username
+  socket.emit("user joined", username);
 
   // Handle form submission
-  document
-    .getElementById("chat-input-container")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
+  document.getElementById("chat-input-container").addEventListener("submit", function (event) {
+    event.preventDefault();
 
-      // Check if a friend is selected
-      const selectedFriend =
-        document.getElementById("matchingFriendsList").dataset.selectedFriend;
+    // Check if a friend is selected
+    const selectedFriend = document.getElementById("matchingFriendsList").dataset.selectedFriend;
 
-      if (!selectedFriend) {
-        alert("Please select a friend before starting a chat.");
-        return;
-      }
+    if (!selectedFriend) {
+      alert("Please select a friend before starting a chat.");
+      return;
+    }
 
-      const messageInput = document.getElementById("messageInput");
-      const message = messageInput.value;
-      const timestamp = new Date();
+    const messageInput = document.getElementById("messageInput");
+    const message = messageInput.value;
+    const timestamp = new Date();
 
-      if (message.trim() !== "") {
-        // Emit a new message event with sender, recipient, message, and timestamp
-        socket.emit("new_message_private", {
-          username,
-          message,
-          timestamp,
-          recipient: selectedFriend,
-        });
-        messageInput.value = "";
-      }
-    });
+    if (message.trim() !== "") {
+      // Emit a new message event with sender, recipient, message, and timestamp
+      socket.emit("new_message_private", {
+        username,
+        message,
+        timestamp,
+        recipient: selectedFriend,
+      });
+      messageInput.value = "";
+    }
+  });
 
   // Update matching friends when dropdowns change
   const dropdowns = [
@@ -56,12 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to fetch and display matching friends based on selected preferences
   function updateMatchingFriends() {
-    const selectedJuice =
-      document.getElementById("favoritejuice-field").value;
-    const selectedCoffee =
-      document.getElementById("favoritecoffee-field").value;
-    const selectedSandwich =
-      document.getElementById("favoritesandwich-field").value;
+    const selectedJuice = document.getElementById("favoritejuice-field").value;
+    const selectedCoffee = document.getElementById("favoritecoffee-field").value;
+    const selectedSandwich = document.getElementById("favoritesandwich-field").value;
 
     // Fetch matching friends from the server
     fetch(`/api/matching-friends?juice=${selectedJuice}&coffee=${selectedCoffee}&sandwich=${selectedSandwich}`)
@@ -76,9 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to display matching friends in the "Matching Friends" section
   function displayMatchingFriends(matchingFriends) {
-    const matchingFriendsList = document.getElementById(
-      "matchingFriendsList"
-    );
+    const matchingFriendsList = document.getElementById("matchingFriendsList");
     matchingFriendsList.innerHTML = ""; // Clear previous list
 
     if (matchingFriends.length > 0) {
@@ -132,10 +127,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Socket.IO event handlers
   socket.on("new_message_private", (message) => {
+    // Add new private message to the chat
     addMessageToChat(message);
   });
 
   socket.on("messages_private", (messages) => {
+    // Add existing private messages to the chat
     messages.forEach((message) => addMessageToChat(message));
   });
 
@@ -149,10 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   socket.on("removeChatter_private", (name) => {
     // Remove a chatter from the list when disconnected
-    deleteCookie("username=");
+    document.cookie = `userAuth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     const chatterToRemove = document.querySelector(
       `#chatters li[data-name="${name}"]`
     );
     chatterToRemove.remove();
   });
 });
+
