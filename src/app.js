@@ -32,9 +32,9 @@ app.get("/alive", async (req, res) => {
   res.status(200).send("It is alive!");
 });
 
-// Sample route to serve the index.html file
+// Sample route to serve the login.html file
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/index.html"));
+  res.sendFile(path.join(__dirname, "./public/login.html"));
 });
 
 // Add a route for userProfile.html
@@ -42,8 +42,10 @@ app.get("/userProfile", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/userProfile.html"));
 });
 
-// Add routes for login and signup
-app.use(loginRoute);
+// Add routes for login.html
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/login.html"));
+});
 
 // Add the chat route to the app
 //app.use('/chat', chatRoute(io));
