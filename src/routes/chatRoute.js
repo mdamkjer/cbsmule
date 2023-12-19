@@ -5,7 +5,7 @@ module.exports = (io) => {
   io.on("connection", (socket) => {
     console.log("A user connected");
 
-    socket.on("join_private", (username) => {
+    socket.on("user joined", (username) => {
       console.log(`${username} joined the chat`);
       connectedUsers.set(socket.id, username);
       io.emit("addChatter_private", username);
