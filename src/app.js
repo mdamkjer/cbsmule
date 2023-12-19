@@ -9,7 +9,7 @@ const http = require("http");
 const app = express();
 //Constants for server configuration
 const PORT = 80; //ændret fra 2000 til 80
-const IP = "0.0.0.0";
+//const IP = "0.0.0.0"; not using IP
 
 // Middlewares
 app.use(cors());
@@ -76,6 +76,6 @@ app.use("/api", loginRoute);
 // });
 
 // Start the server
-server.listen(PORT, IP, () => {
-  console.log(`Server opens on ${PORT}:${IP}`);
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
