@@ -21,8 +21,10 @@ app.use("/", express.static(path.join(__dirname, "public")));
 // Initialize socket.io
 //const server = http.createServer(app);
 //const io = new Server(server);
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
+//const http = require("http").Server(app);
+//const io = require("socket.io")(http);
+const server = http.createServer(app);
+const io = new Server(server);
 
 // Import your authentication module
 const loginRoute = require("./routes/loginRoute.js");
