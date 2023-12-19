@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { executeSQL } = require('../models/executesql.js');
 const bcrypt = require('bcrypt');
+const { TYPES } = require('tedious');
 
 // Middleware for handling CORS
 router.use((req, res, next) => {
@@ -20,23 +21,23 @@ router.post('/create', async (req, res) => {
 
     // SQL query to insert a new user
     const query = `
-        INSERT INTO Users (Username, Password, Email, PhoneNumber, Juice, Coffee, Sandwich)
+        INSERT INTO Users (UserName, Password, Email, PhoneNumber, Juice, Coffee, Sandwich)
         VALUES (@username, @password, @email, @phoneNumber, @juice, @coffee, @sandwich);
     `;
 
     // SQL parameters
     const params = [
-      { name: 'Username', type: 'VarChar', value: username },
-      { name: 'Password', type: 'VarChar', value: hashedPassword },
-      { name: 'Email', type: 'VarChar', value: email },
-      { name: 'PhoneNumber', type: 'VarChar', value: phoneNumber },
-      { name: 'Juice', type: 'VarChar', value: juice },
-      { name: 'Coffee', type: 'VarChar', value: coffee },
-      { name: 'Sandwich', type: 'VarChar', value: sandwich }
+      { name: 'username', type: TYPES.VarChar, value: username },
+      { name: 'password', type: TYPES.VarChar, value: hashedPassword },
+      { name: 'email', type: TYPES.VarChar, value: email },
+      { name: 'phoneNumber', type: TYPES.VarChar, value: phoneNumber },
+      { name: 'juice', type: TYPES.VarChar, value: juice },
+      { name: 'coffee', type: TYPES.VarChar, value: coffee },
+      { name: 'sandwich', type: TYPES.VarChar, value: sandwich }
     ];
 
     // Execute the SQL query
-    await executeSQL(query, params);
+    const result = await executeSQL(query, params);
 
     // Set a cookie for the userAuth
     res.cookie('userAuth', username, { expires: new Date(Date.now() + 31536000000), httpOnly: true, path: '/' });

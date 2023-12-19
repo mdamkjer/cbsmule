@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
 
     <title>Index side</title>
 </head>
+
 <body>
     <main>
         <div class="topbar">
@@ -39,7 +41,7 @@
 
             <div id="chat-box">
                 <div id="messagesContainer"></div>
-                <form id="chat-input-container">
+                <form action="#" id="chat-input-container">
                     <input type="text" id="messageInput" placeholder="Type your message...">
                     <button id="sendMessageButton">Send</button>
                 </form>
@@ -61,7 +63,7 @@
             <option value="Pick Me Up">Pick Me Up</option>
             <option value="Stress Down">Stress Down</option>
         </select>
-    
+
         <label for="favoritecoffee-field">Favorite Coffee:</label>
         <select name="favoritecoffee" id="favoritecoffee-field" class="signup-form-field" autocomplete="off">
             <option value="Latte">Latte</option>
@@ -75,7 +77,7 @@
             <option value="Matcha Oat Latte">Matcha Oat Latte</option>
             <option value="Iced Matcha Oat Latte">Iced Matcha Oat Latte</option>
         </select>
-    
+
         <label for="favoritesandwich-field">Favorite Sandwich:</label>
         <select name="favoritesandwich" id="favoritesandwich-field" class="signup-form-field" autocomplete="off">
             <option value="JOEs Club">JOEs Club</option>
@@ -86,16 +88,17 @@
             <option value="Turkey">Turkey</option>
             <option value="VAVO (Vegan Avocado)">VAVO (Vegan Avocado)</option>
         </select>
-    
+
         <!-- Display a list of friends matching the same favorites -->
         <div id="matching-friends">
             <h3>Matching Friends</h3>
             <ul id="matchingFriendsList"></ul>
         </div>
     </div>
-</div>  
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script src="/js/chat.js"></script>
+
 </html>

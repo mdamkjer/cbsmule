@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { executeSQL } = require("../models/executesql.js");
 const bcrypt = require("bcrypt");
+const { TYPES } = require("tedious");
 
 // Middleware for handling CORS
 router.use((req, res, next) => {
@@ -14,25 +15,25 @@ router.use((req, res, next) => {
 });
 
 // Route for user login
-router.post("/api/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
 
     // SQL query to fetch user data by username
     const query = `
-            SELECT Username, Password
+            SELECT UserName, Password
             FROM Users
-            WHERE Username = @username;
+            WHERE UserName = @username;
         `;
 
     // SQL parameters
-    const params = [{ name: "Username", type: "VarChar", value: username }];
+    const params = [{ name: "username", type: TYPES.VarChar, value: username }];
 
     // Execute the SQL query
     const result = await executeSQL(query, params);
 
     // Check if the user exists
-    if (result.length > 0) {
+    if (Object.keys(result).length > 0) {
       const storedPassword = result[0].Password;
 
       // Compare the provided password with the hashed password from the database
