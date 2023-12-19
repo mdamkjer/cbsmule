@@ -25,7 +25,7 @@ document.getElementById('login-form-submit').addEventListener('click', function(
        if (data.success) {
            // If the login was successful, set a cookie with the user data and redirect to the chat page
            document.cookie = 'userAuth=' + username + '; expires=Thu, 18 Dec 2025 12:00:00 UTC; path=/';
-           window.location.href = '/src/public/chat.html'; // Redirect to the chat page
+           window.location.href = '/public/chat.html'; // Redirect to the chat page
        } else {
            // If the login was not successful, display an error message
            alert('Error: ' + data.message);
