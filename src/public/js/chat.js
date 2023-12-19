@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Connect to the Socket.IO server
   const socket = io();
 
-  // Retrieve username from cookies
   let username = getCookie("username");
 
   // Check if username is not found in cookies
@@ -31,8 +30,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Handle form submission
   document
     .getElementById("chat-input-container")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
+    .addEventListener("submit", handleFormSubmission);
+
+  const dropdowns = [
+    document.getElementById("favoritejuice-field"),
+    document.getElementById("favoritecoffee-field"),
+    document.getElementById("favoritesandwich-field"),
+  ];
+
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener("change", updateMatchingFriends);
+  });
+
+  socket.on("new_message_private", addMessageToChat);
+  socket.on("messages_private", addExistingMessagesToChat);
+  socket.on("addChatter_private", addChatterToList);
+  socket.on("removeChatter_private", removeChatterFromList);
+
+  function handleFormSubmission(event) {
+    event.preventDefault();
 
       // Check if a friend is selected
       const selectedFriend = document.getElementById("matchingFriendsList").dataset.selectedFriend;
