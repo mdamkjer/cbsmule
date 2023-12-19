@@ -42,18 +42,13 @@ app.get("/", (req, res) => {
 });
 
 // Sample route to serve the login.html file
-app.get("/login", (req, res) => { //loginRoute was before
+app.get("/loginRoute", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/login.html"));
 });
 
 // Add a route for userProfile.html
 app.get("/userProfile", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/userProfile.html"));
-});
-
-//Add a route for chat.html
-app.get("/userProfile", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/chat.html"));
 });
 
 // Add routes for events.html NOT IN THE FRONTEND YET

@@ -1,47 +1,62 @@
+function getCookie(name) {
+  var nameEQ = name + "=";
+  console.log(document.cookie)
+  var ca = document.cookie.split(";");
+
+
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == " ") c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // Connect to the Socket.IO server
   const socket = io();
 
   // Retrieve username from cookies
-  let username = getCookie("userAuth");
+  let username = getCookie("username");
 
   // Check if username is not found in cookies
   if (!username) {
-  // Redirect to the login page or perform any other action
-  location.href = "/public/login.html"; // Change "/login" to your actual login page
-}
-
+    // Redirect to the login page or perform any other action
+    location.href = "/login.html"; // Change "/login" to your actual login page
+  }
 
   // Emit the user joined event with the username
   socket.emit("user joined", username);
 
   // Handle form submission
-  document.getElementById("chat-input-container").addEventListener("submit", function (event) {
-    event.preventDefault();
+  document
+    .getElementById("chat-input-container")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    // Check if a friend is selected
-    const selectedFriend = document.getElementById("matchingFriendsList").dataset.selectedFriend;
+      // Check if a friend is selected
+      const selectedFriend = document.getElementById("matchingFriendsList").dataset.selectedFriend;
 
-    if (!selectedFriend) {
-      alert("Please select a friend before starting a chat.");
-      return;
-    }
+      if (!selectedFriend) {
+        alert("Please select a friend before starting a chat.");
+        return;
+      }
 
-    const messageInput = document.getElementById("messageInput");
-    const message = messageInput.value;
-    const timestamp = new Date();
+      const messageInput = document.getElementById("messageInput");
+      const message = messageInput.value;
+      const timestamp = new Date();
 
-    if (message.trim() !== "") {
-      // Emit a new message event with sender, recipient, message, and timestamp
-      socket.emit("new_message_private", {
-        username,
-        message,
-        timestamp,
-        recipient: selectedFriend,
-      });
-      messageInput.value = "";
-    }
-  });
+      if (message.trim() !== "") {
+        // Emit a new message event with sender, recipient, message, and timestamp
+        socket.emit("new_message_private", {
+          username,
+          message,
+          timestamp,
+          recipient: selectedFriend,
+        });
+        messageInput.value = "";
+      }
+    });
 
   // Update matching friends when dropdowns change
   const dropdowns = [
@@ -57,11 +72,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to fetch and display matching friends based on selected preferences
   function updateMatchingFriends() {
     const selectedJuice = document.getElementById("favoritejuice-field").value;
-    const selectedCoffee = document.getElementById("favoritecoffee-field").value;
-    const selectedSandwich = document.getElementById("favoritesandwich-field").value;
+    const selectedCoffee = document.getElementById(
+      "favoritecoffee-field"
+    ).value;
+    const selectedSandwich = document.getElementById(
+      "favoritesandwich-field"
+    ).value;
 
     // Fetch matching friends from the server
-    fetch(`/api/matching-friends?juice=${selectedJuice}&coffee=${selectedCoffee}&sandwich=${selectedSandwich}`)
+    fetch(
+      `/api/matching-friends?juice=${selectedJuice}&coffee=${selectedCoffee}&sandwich=${selectedSandwich}`
+    )
       .then((response) => response.json())
       .then((matchingFriends) => {
         displayMatchingFriends(matchingFriends);
@@ -85,7 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add a click event listener to select the friend
         listItem.addEventListener("click", () => {
           // Set the selected friend
-          document.getElementById("matchingFriendsList").dataset.selectedFriend = friend.username;
+          document.getElementById(
+            "matchingFriendsList"
+          ).dataset.selectedFriend = friend.username;
         });
 
         matchingFriendsList.appendChild(listItem);
@@ -153,4 +176,3 @@ document.addEventListener("DOMContentLoaded", () => {
     chatterToRemove.remove();
   });
 });
-
