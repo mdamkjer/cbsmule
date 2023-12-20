@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { Server } = require("socket.io");
-const { MessagingResponse } = require("twilio").twiml;
+// const { MessagingResponse } = require("twilio").twiml;
 const http = require("http");
 
 const app = express();
@@ -70,13 +70,13 @@ app.use("/api", loginRoute);
 app.use("/chat", chatRoute);
 
 // Sample Twilio route UPDATE THIS BUT HAVE TO INSTALL AND THEN PUT THE CODE BACK IN REPOSITORY
-app.post("/events/sms", (req, res) => {
-  const twiml = new MessagingResponse();
-  twiml.message(
-    "CBSmule har modtaget din besked. Vi vender tilbage hurtigst muligt."
-  );
-  res.type("text/xml").send(twiml.toString());
-});
+// app.post("/events/sms", (req, res) => {
+//   const twiml = new MessagingResponse();
+//   twiml.message(
+//     "CBSmule har modtaget din besked. Vi vender tilbage hurtigst muligt."
+//   );
+//   res.type("text/xml").send(twiml.toString());
+// });
 
 // Start the server
 server.listen(PORT, () => {
