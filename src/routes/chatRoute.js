@@ -17,10 +17,9 @@ router.get('/user-favorites', async (req, res) => {
 
     // SQL query to fetch user favorites from the database
     const query = `
-      SELECT uf.juice, uf.coffee, uf.sandwich
-      FROM UserFavorites uf
-      INNER JOIN Users u ON uf.UserID = u.UserID
-      WHERE u.UserName = @username;
+    SELECT u.Juice, u.Coffee, u.Sandwich
+    FROM Users u
+    WHERE u.UserName = @username;
     `;
 
     // Execute the SQL query
@@ -60,12 +59,11 @@ const setupSocketConnection = (io) => {
       try {
         // SQL query to fetch online users with matching preferences
         const query = `
-          SELECT DISTINCT u.UserName
-          FROM Users u
-          INNER JOIN UserFavorites uf ON u.UserID = uf.UserID
-          WHERE uf.juice = @juice AND uf.coffee = @coffee AND uf.sandwich = @sandwich
-          AND u.UserName IN (${Object.values(onlineUsers).map((username) => `'${username}'`).join(',')});
-        `;
+        SELECT DISTINCT u.UserName
+        FROM Users u
+        WHERE u.Juice = @juice AND u.Coffee = @coffee AND u.Sandwich = @sandwich
+        AND u.UserName IN (${Object.values(onlineUsers).map((username) => `'${username}'`).join(',')});
+      `;
 
         // Execute the SQL query
         const onlineMatchingUsers = await executeSQL(query, [
