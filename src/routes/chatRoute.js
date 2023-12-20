@@ -11,7 +11,7 @@ router.use((req, res, next) => {
   next();
 });
 
-router.post('/user-favorites', async (req, res) => {
+router.get('/user-favorites', async (req, res) => {
   try {
     // Assuming the preferences are sent in the request body
     const { username } = req.body;
