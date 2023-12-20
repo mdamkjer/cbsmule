@@ -60,7 +60,7 @@ const setupSocketConnection = (io) => {
     });
 
     // Include your chatRoute and pass the socket
-    chatRoute(io, socket);
+    //chatRoute(io, socket);
  });
 };
 
