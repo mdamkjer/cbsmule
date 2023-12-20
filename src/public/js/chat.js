@@ -13,7 +13,7 @@ function getCookie(name) {
 }
 document.addEventListener("DOMContentLoaded", () => {
   // Connect to the Socket.IO server
-  const socket = io("/chat"); //updated with "/chat"
+  const socket = io("https://www.cbsmule.live"); 
 
   // Retrieve username from cookies
   let username = getCookie("username");
