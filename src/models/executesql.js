@@ -17,7 +17,7 @@ const executeSQL = (sql, userParams = []) => {
         });
 
         userParams.forEach(param => {
-          request.addParameter(param.name, param.type, param.value);
+          request.addParameter(param.name, param.type, param.value, param.options); //added param.options
         });
 
         connection.execSql(request);
