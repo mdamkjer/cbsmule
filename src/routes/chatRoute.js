@@ -39,7 +39,7 @@ const onlineUsers = {};
 
 // Function to set up Socket.IO connection and pass the socket to the routes
 const setupSocketConnection = (io) => {
-  io.on('connection', (socket) => {
+  io.of('/chat').on('connection', (socket) => {
     console.log(`User ${socket.id} connected`);
 
     // Socket.IO event for user joining the chat

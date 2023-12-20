@@ -13,7 +13,7 @@ function getCookie(name) {
 }
 document.addEventListener("DOMContentLoaded", () => {
   // Connect to the Socket.IO server
-  const socket = io();
+  const socket = io("/chat"); //updated with "/chat"
 
   // Retrieve username from cookies
   let username = getCookie("username");
