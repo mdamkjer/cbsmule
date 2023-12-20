@@ -9,6 +9,6 @@ For at starte applikationen på localhost:
 4. Du har nu startet applikationen på localhost.
 
 For at starte applikationen på domæne: OBS. Digitalocean credits udløber i januar, hvorefter den ikke vil køre.
-1. Der benyttes pm2, hvorfor serveren ikke skal startes
+1. Starte DigitalOcean i mappen 'src' med node app.js.
 2. Gå i en browser og skriv cbsmule.live
 3. Du har nu startet applikationen på domæne.
