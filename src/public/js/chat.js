@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.emit("user joined", username);
 
   // Fetch users with similar preferences from the server
-  fetch("/api/matching-users", {
+  fetch("/chat/user-favorites", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
