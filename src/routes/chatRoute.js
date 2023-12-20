@@ -34,7 +34,28 @@ router.post('/user-favorites', async (req, res) => {
   }
  });
  
- // ...
+// Socket.IO event for tracking online users
+const onlineUsers = {};
+
+// Function to set up Socket.IO connection and pass the socket to the routes
+const setupSocketConnection = (io) => {
+  io.on('connection', (socket) => {
+    console.log(`User ${socket.id} connected`);
+
+    // Socket.IO event for user joining the chat
+    socket.on('user joined', (username) => {
+      console.log(`User ${username} joined the chat`);
+      onlineUsers[socket.id] = username;
+    });
+
+    // Socket.IO event for user disconnecting
+    socket.on('disconnect', () => {
+      console.log(`User ${onlineUsers[socket.id]} disconnected`);
+      delete onlineUsers[socket.id];
+    });
+    chatRoute(io, socket);
+  });
+};
  
  // Socket.IO event for checking matching users
  socket.on('check_matching_users', async (preferences) => {
@@ -64,3 +85,4 @@ router.post('/user-favorites', async (req, res) => {
      console.error('Error checking matching users:', error);
   }
  });
+ module.exports = { router, setupSocketConnection };
