@@ -14,7 +14,7 @@
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "tedious": "^16.6.1",
-    "twilio": "^4.19.3"
+    "twilio": "^4.20.0"
   },
   "name": "project",
   "description": "",
