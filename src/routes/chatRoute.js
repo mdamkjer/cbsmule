@@ -11,80 +11,56 @@ router.use((req, res, next) => {
   next();
 });
 
-// Assuming you have separate model files for User and UserFavorites
-const { User, UserFavorites } = require('../models'); 
-
-// Socket.IO event for tracking online users
-const onlineUsers = {};
-
-// Endpoint to get user favorites based on preferences
-router.get('/user-favorites', async (req, res) => {
+router.post('/user-favorites', async (req, res) => {
   try {
-    // Assuming the preferences are sent as query parameters
-    const { username } = req.query;
-
-    // SQL query to fetch user favorites from the database
-    const query = `
-      SELECT uf.juice, uf.coffee, uf.sandwich
-      FROM UserFavorites uf
-      INNER JOIN Users u ON uf.UserID = u.UserID
-      WHERE u.UserName = @username;
-    `;
-
-    // Execute the SQL query
-    const userFavorites = await executeSQL(query, [{ name: 'username', type: 'VarChar', value: username }]);
-
-    res.json(userFavorites);
+     // Assuming the preferences are sent in the request body
+     const { username } = req.body;
+ 
+     // SQL query to fetch user favorites from the database
+     const query = `
+       SELECT uf.juice, uf.coffee, uf.sandwich
+       FROM UserFavorites uf
+       INNER JOIN Users u ON uf.UserID = u.UserID
+       WHERE u.UserName = @username;
+     `;
+ 
+     // Execute the SQL query
+     const userFavorites = await executeSQL(query, [{ name: 'username', type: 'VarChar', value: username }]);
+ 
+     res.json(userFavorites);
   } catch (error) {
-    console.error('Error fetching user favorites:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+     console.error('Error fetching user favorites:', error);
+     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
-
-// Socket.IO connection event
-router.io = (socket) => {
-  console.log(`User ${socket.id} connected`);
-
-  // Socket.IO event for user joining the chat
-  socket.on('user joined', (username) => {
-    console.log(`User ${username} joined the chat`);
-    onlineUsers[socket.id] = username;
-  });
-
-  // Socket.IO event for user disconnecting
-  socket.on('disconnect', () => {
-    console.log(`User ${onlineUsers[socket.id]} disconnected`);
-    delete onlineUsers[socket.id];
-  });
-
-  // Socket.IO event for checking matching users
-  socket.on('check_matching_users', async (preferences) => {
-    const { juice, coffee, sandwich } = preferences;
-
-    try {
-      // SQL query to fetch online users with matching preferences
-      const query = `
-        SELECT DISTINCT u.UserName
-        FROM Users u
-        INNER JOIN UserFavorites uf ON u.UserID = uf.UserID
-        WHERE uf.juice = @juice AND uf.coffee = @coffee AND uf.sandwich = @sandwich
-        AND u.UserName IN (${Object.values(onlineUsers).map((username) => `'${username}'`).join(',')});
-      `;
-
-      // Execute the SQL query
-      const onlineMatchingUsers = await executeSQL(query, [
-        { name: 'juice', type: 'VarChar', value: juice },
-        { name: 'coffee', type: 'VarChar', value: coffee },
-        { name: 'sandwich', type: 'VarChar', value: sandwich },
-        ...Object.values(onlineUsers).map((username) => ({ name: 'username', type: 'VarChar', value: username })),
-      ]);
-
-      // Emit the list of online users with matching preferences
-      socket.emit('matching_users', onlineMatchingUsers);
-    } catch (error) {
-      console.error('Error checking matching users:', error);
-    }
-  });
-};
-
-module.exports = router;
+ });
+ 
+ // ...
+ 
+ // Socket.IO event for checking matching users
+ socket.on('check_matching_users', async (preferences) => {
+  const { juice, coffee, sandwich } = preferences;
+ 
+  try {
+     // SQL query to fetch online users with matching preferences
+     const query = `
+       SELECT DISTINCT u.UserName
+       FROM Users u
+       INNER JOIN UserFavorites uf ON u.UserID = uf.UserID
+       WHERE uf.juice = @juice AND uf.coffee = @coffee AND uf.sandwich = @sandwich
+       AND u.UserName IN (${Object.values(onlineUsers).map((username) => `'${username}'`).join(',')});
+     `;
+ 
+     // Execute the SQL query
+     const onlineMatchingUsers = await executeSQL(query, [
+       { name: 'juice', type: 'VarChar', value: juice },
+       { name: 'coffee', type: 'VarChar', value: coffee },
+       { name: 'sandwich', type: 'VarChar', value: sandwich },
+       ...Object.values(onlineUsers).map((username) => ({ name: 'username', type: 'VarChar', value: username })),
+     ]);
+ 
+     // Emit the list of online users with matching preferences
+     socket.emit('matching_users', onlineMatchingUsers);
+  } catch (error) {
+     console.error('Error checking matching users:', error);
+  }
+ });
