@@ -1,11 +1,11 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #ffe6f2; /* Pink background color */
 }
 
 .topbar {
-  background-color: #fff; /* White top bar */
+  background-color: #3B405C; /* JOE Purple */
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -21,7 +21,7 @@ body {
 .topbar a {
   margin: 0 10px;
   text-decoration: none;
-  color: #333;
+  color: #fff; /* White text */
 }
 
 #account {
@@ -40,7 +40,7 @@ body {
 
 #profile-button:hover,
 #log-out:hover {
-  color: #81b9df;
+  color: #81b9df; /* Light Blue */
   cursor: pointer;
 }
 
@@ -62,9 +62,6 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: auto; /* Center the container */
   margin-top: 20px; /* Adjust the top margin */
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
 }
 
 #friends-container select {
@@ -87,6 +84,7 @@ body {
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 4px;
+  background-color: #fff; /* White background for matching friends */
 }
 
 #chat-container {
@@ -96,12 +94,8 @@ body {
   margin-top: 20px;
 }
 
-h1 {
-  text-align: center; /* Center the h1 */
-  margin-bottom: 20px; /* Add margin below the h1 */
-}
-
-h3 {
+h1, h3 {
+  color: #3B405C; /* JOE Purple */
   text-align: center; /* Center the h1 */
   margin-bottom: 20px; /* Add margin below the h1 */
 }
@@ -113,6 +107,8 @@ h3 {
   width: 400px;
   max-width: 100%; /* Adjust the width based on your design */
   text-align: left; /* Align text to the left in the chat box */
+  background-color: #fff; /* White background for the chat box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #messagesContainer {
@@ -135,7 +131,7 @@ h3 {
 }
 
 #sendMessageButton {
-  background-color: rgb(255, 192, 234);
+  background-color: #ff6b6b; /* Light Red */
   color: #fff;
   padding: 10px;
   border: none;
@@ -154,48 +150,20 @@ label {
   margin-right: 10px;
 }
 
-/* for chat */
-#chat-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#friends-list {
   margin-top: 20px;
+  text-align: center;
 }
 
-#chat-box {
+#friends-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+#friends-list li {
+  margin: 10px;
+  display: inline-block;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  width: 400px;
-  max-width: 100%;
-  text-align: left;
-}
-
-#messagesContainer {
-  max-height: 200px;
-  overflow-y: auto;
-  white-space: pre-wrap;
-}
-
-#chat-input-container {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-}
-
-#messageInput {
-  flex: 1;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-#sendMessageButton {
-  background-color: #ffe6f2;
-  color: #333;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 10px;
 }

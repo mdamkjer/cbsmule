@@ -1,7 +1,8 @@
 function getCookie(name) {
   var nameEQ = name + "=";
-  console.log(document.cookie);
+  console.log(document.cookie)
   var ca = document.cookie.split(";");
+
 
   for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
@@ -11,36 +12,89 @@ function getCookie(name) {
   return null;
 }
 document.addEventListener("DOMContentLoaded", () => {
+  // Connect to the Socket.IO server
   const socket = io();
 
-  const username = getCookie("username");
+  // Retrieve username from cookies
+  let username = getCookie("username");
 
+  // Check if username is not found in cookies
   if (!username) {
-    location.href = "/login.html";
+    // Redirect to the login page or perform any other action
+    location.href = "/login.html"; // Change "/login" to your actual login page
+    return;
   }
 
-  socket.emit("join_chat", username);
+  // Emit the user joined event with the username
+  socket.emit("user joined", username);
 
-  const chatForm = document.getElementById("chat-form");
-  const messageInput = document.getElementById("message-input");
-  const messagesList = document.getElementById("messages");
+  // Fetch users with similar preferences from the server
+  fetch("/api/matching-users", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((matchingUsers) => {
+      // Display matching users in the dropdown
+      displayMatchingUsersDropdown(matchingUsers);
+    })
+    .catch((error) => {
+      console.error("Error fetching matching users:", error);
+    });
 
-  chatForm.addEventListener("submit", (event) => {
+  // Function to display matching users in the dropdown
+  function displayMatchingUsersDropdown(matchingUsers) {
+    const dropdownContainer = document.getElementById("matchingUsersDropdown");
+    const dropdown = document.createElement("select");
+    dropdown.setAttribute("id", "matchingUsersList");
+
+    // Add an option for each matching user
+    matchingUsers.forEach((user) => {
+      const option = document.createElement("option");
+      option.value = user.username; // Replace with the appropriate user property
+      option.text = user.username; // Replace with the appropriate user property
+      dropdown.add(option);
+    });
+
+    // Clear previous dropdown and append the new one
+    dropdownContainer.innerHTML = "";
+    dropdownContainer.appendChild(dropdown);
+
+    // Add event listener to the dropdown for initiating a chat
+    dropdown.addEventListener("change", () => {
+      const selectedFriend = dropdown.value;
+      // TODO: Implement logic to initiate a chat with the selected user
+      console.log(`Initiate chat with user: ${selectedFriend}`);
+    });
+  }
+
+  // Handle form submission
+  document.getElementById("chat-input-container").addEventListener("submit", function (event) {
     event.preventDefault();
-    const message = messageInput.value.trim();
-    if (message !== "") {
-      socket.emit("send_message", { username, message });
+
+    // Check if a friend is selected
+    const selectedFriend = document.getElementById("matchingUsersList").value;
+
+    if (!selectedFriend) {
+      alert("Please select a friend before starting a chat.");
+      return;
+    }
+
+    const messageInput = document.getElementById("messageInput");
+    const message = messageInput.value;
+    const timestamp = new Date();
+
+    if (message.trim() !== "") {
+      // Emit a new message event with sender, recipient, message, and timestamp
+      socket.emit("new_message_private", {
+        username,
+        message,
+        timestamp,
+        recipient: selectedFriend,
+      });
       messageInput.value = "";
     }
-  });
-
-  socket.on("receive_message", (data) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = `${data.username}: ${data.message}`;
-    messagesList.appendChild(listItem);
-  });
-
-  window.addEventListener("beforeunload", () => {
-    socket.emit("leave_chat", username);
   });
 });
