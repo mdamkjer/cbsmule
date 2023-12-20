@@ -88,4 +88,4 @@ const setupSocketConnection = (io) => {
   });
 };
 
-module.exports = { setupSocketConnection };
+module.exports = { router, setupSocketConnection };
