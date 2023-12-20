@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to display matching users in the dropdown
   function displayMatchingUsersDropdown(matchingUsers) {
-    const dropdownContainer = document.getElementById("matchingUsersDropdown");
+    const dropdownContainer = document.getElementById("matchingUsersList");
     const dropdown = document.createElement("select");
     dropdown.setAttribute("id", "matchingUsersList");
 

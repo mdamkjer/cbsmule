@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { executeSQL } = require('../models/executesql.js');
-const bcrypt = require('bcrypt');
 const { TYPES } = require('tedious');
 
 // Middleware for handling CORS
@@ -25,7 +24,7 @@ router.get('/user-favorites', async (req, res) => {
     `;
 
     // Execute the SQL query
-    const userFavorites = await executeSQL(query, [{ name: 'username', type: 'VarChar', value: username }]);
+    const userFavorites = await executeSQL(query, [{ name: 'username', type: TYPES.VarChar, value: username }]);
 
     res.json(userFavorites);
   } catch (error) {
@@ -70,10 +69,10 @@ const setupSocketConnection = (io) => {
 
         // Execute the SQL query
         const onlineMatchingUsers = await executeSQL(query, [
-          { name: 'juice', type: 'VarChar', value: juice },
-          { name: 'coffee', type: 'VarChar', value: coffee },
-          { name: 'sandwich', type: 'VarChar', value: sandwich },
-          ...Object.values(onlineUsers).map((username) => ({ name: 'username', type: 'VarChar', value: username })),
+          { name: 'juice', type: TYPES.VarChar, value: juice },
+          { name: 'coffee', type: TYPES.VarChar, value: coffee },
+          { name: 'sandwich', type: TYPES.VarChar, value: sandwich },
+          ...Object.values(onlineUsers).map((username) => ({ name: 'username', type: TYPES.VarChar, value: username })),
         ]);
 
         // Emit the list of online users with matching preferences
