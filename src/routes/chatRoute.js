@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { executeSQL } = require('../models/executesql.js');
 const { TYPES } = require('tedious');
 
 // Middleware for handling CORS
@@ -12,6 +13,35 @@ router.use((req, res, next) => {
 // Map to store online users
 let onlineUsers = {};
 
+// Route to check matching users
+router.post('/user-favorites', async (req, res) => {
+ const userFavorites = req.body;
+
+ try {
+    // SQL query to fetch online users with matching preferences
+    const query = `
+    SELECT DISTINCT u.UserName
+    FROM Users u
+    WHERE u.Juice = @juice AND u.Coffee = @coffee AND u.Sandwich = @sandwich
+    AND u.UserName IN (${Object.values(onlineUsers).map((username) => `'${username}'`).join(',')});
+ `;
+
+    // Execute the SQL query
+    const onlineMatchingUsers = await executeSQL(query, [
+      { name: 'juice', type: TYPES.VarChar, value: userFavorites.juice },
+      { name: 'coffee', type: TYPES.VarChar, value: userFavorites.coffee },
+      { name: 'sandwich', type: TYPES.VarChar, value: userFavorites.sandwich },
+      ...Object.values(onlineUsers).map((username) => ({ name: 'username', type: TYPES.VarChar, value: username })),
+    ]);
+
+    // Return the list of online users with matching preferences
+    res.json(onlineMatchingUsers);
+ } catch (error) {
+    console.error('Error checking matching users:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+ }
+});
+
 // Function to set up Socket.IO connection and pass the socket to the routes
 const setupSocketConnection = (io) => {
  io.of('/chat').on('connection', (socket) => {
@@ -23,19 +53,15 @@ const setupSocketConnection = (io) => {
       onlineUsers[socket.id] = username;
     });
 
-      // Broadcast the updated list of online users to all connected clients
-      io.of('/chat').emit('update users', Object.values(onlineUsers));
-    });
-
     // Socket.IO event for user disconnecting
     socket.on('disconnect', () => {
-      const disconnectedUser = onlineUsers[socket.id];
       console.log(`User ${onlineUsers[socket.id]} disconnected`);
       delete onlineUsers[socket.id];
     });
 
-      // Broadcast the updated list of online users to all connected clients
-      io.of('/chat').emit('update users', Object.values(onlineUsers));
-  };
+    // Include your chatRoute and pass the socket
+    //chatRoute(io, socket);
+ });
+};
 
 module.exports = { router, setupSocketConnection };
