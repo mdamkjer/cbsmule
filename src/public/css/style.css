@@ -154,24 +154,6 @@ label {
   margin-right: 10px;
 }
 
-#friends-list {
-  margin-top: 20px;
-  text-align: center;
-}
-
-#friends-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-#friends-list li {
-  margin: 10px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
-}
-
 /* for chat */
 #chat-container {
   display: flex;
