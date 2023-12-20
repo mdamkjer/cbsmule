@@ -43,7 +43,7 @@ const setupSocketConnection = (io) => {
     console.log(`User ${socket.id} connected`);
 
     // Socket.IO event for user joining the chat
-    socket.on('user joined', (username) => {
+      socket.on('user joined', (username) => {
       console.log(`User ${username} joined the chat`);
       onlineUsers[socket.id] = username;
     });
@@ -88,4 +88,4 @@ const setupSocketConnection = (io) => {
   });
 };
 
-module.exports = { router, setupSocketConnection };
+module.exports = { setupSocketConnection };

@@ -28,7 +28,7 @@ const io = new Server(server);
 
 // Import your authentication module
 const loginRoute = require("./routes/loginRoute.js");
-const chatRoute = require("./routes/chatRoute.js");
+const { setupSocketConnection } = require("./routes/chatRoute.js");
 const userProfileRoute = require("./routes/userProfileRoute.js");
 
 // Sample route for checking if the server is alive
@@ -58,7 +58,7 @@ app.get("/userProfile", (req, res) => {
 
 // Add the chat route to the app
 //app.use('/chat', chatRoute(io));
-chatRoute(io);
+setupSocketConnection(io);
 
 // Mount userProfileRoute routes
 app.use("/api/users", userProfileRoute);
