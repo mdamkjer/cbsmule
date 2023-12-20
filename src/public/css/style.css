@@ -72,6 +72,11 @@ h3 {
   margin-bottom: 20px; /* Add margin below the h1 */
 }
 
+p {
+  text-align: center; /* Center the text */
+  margin-bottom: 20px; /* Add margin below the text */
+}
+
 #chat-box {
   border: 1px solid #ccc;
   border-radius: 8px;
