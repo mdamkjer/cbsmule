@@ -3,7 +3,6 @@ const router = express.Router();
 const { executeSQL } = require('../models/executesql.js');
 const bcrypt = require('bcrypt');
 const { TYPES } = require('tedious');
-const chatRoute = require("./routes/chatRoute.js");
 
 // Middleware for handling CORS
 router.use((req, res, next) => {
@@ -84,8 +83,8 @@ const setupSocketConnection = (io) => {
       }
     });
 
-    // Include your chatRoute and pass the socket
-    chatRoute(io, socket);
+    // // Include your chatRoute and pass the socket
+    // chatRoute(io, socket);
   });
 };
 
