@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to display matching users in the dropdown
   function displayMatchingUsersDropdown(matchingUsers) {
-    const dropdownContainer = document.getElementById("matchingUsersList");
+    const dropdownContainer = document.getElementsByClassName("matchingUsersList");
     const dropdown = document.createElement("select");
-    dropdown.setAttribute("id", "matchingUsersList");
+    dropdown.setAttribute("class", "matchingUsersList");
 
     // Add an option for each matching user
     matchingUsers.forEach((user) => {
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
 
     // Check if a friend is selected
-    const selectedFriend = document.getElementById("matchingUsersList").value;
+    const selectedFriend = document.getElementsByClassName("matchingUsersList").value;
 
     if (!selectedFriend) {
       alert("Please select a friend before starting a chat.");
