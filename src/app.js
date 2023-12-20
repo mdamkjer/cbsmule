@@ -8,8 +8,8 @@ const http = require("http");
 
 const app = express();
 //Constants for server configuration
-const PORT = 2000; //ændret fra 2000 til 80
-//const IP = "0.0.0.0"; not using IP
+const PORT = 2000; 
+
 
 // Middlewares
 app.use(cors());
@@ -51,10 +51,10 @@ app.get("/userProfile", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/userProfile.html"));
 });
 
-//Add routes for events.html NOT IN THE FRONTEND YET
-app.get("/events", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/events.html"));
-});
+// //Add routes for events.html NOT IN THE FRONTEND YET
+// app.get("/events", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./public/events.html"));
+// });
 
 // Add the chat route to the app
 //app.use('/chat', chatRoute(io));

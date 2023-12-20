@@ -32,31 +32,21 @@
         <p>Chat med madglade gæster hos Joe, der stensikkert vil vælge samme menu som dig</p>
         <p>Tag din nye ven under armen, eller vis et billede af jeres samtale og få <b>10<b> rabat på din næste ordre!</p>
         <div id="chat-container">
-            <div class="friends-container">
-                <p>Select Friend:</p>
-                <select class="matchingUsersList"></select>
-            </div>
-
             <div class="chatters__container">
                 <h3>Online Chatters</h3>
                 <div id="chatters"></div>
             </div>
-
             <div id="chat-box">
                 <div id="messagesContainer"></div>
                 <form action="#" id="chat-input-container">
-                    <input type="text" id="messageInput" placeholder="Type your message...">
+                    <input type="text" id="input" placeholder="Type your message...">
                     <button type="submit" id="sendMessageButton">Send</button>
+                </form>
+                <form action="#" id="chat-room">
+                    <input type="text" id="input" placeholder="Øv, ingen live på chatten...">
                 </form>
             </div>
         </div>
-    </div>
-        <!-- Display a list of friends matching the same favorites -->
-        <div id="matching-friends">
-            <h3>Matching Friends</h3>
-            <ul id="matchingFriendsList"></ul>
-        </div>
-    </div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
