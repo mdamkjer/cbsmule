@@ -1,5 +1,5 @@
 {
-  "server": "cbsmule.database.windows.net",
+  "server": "mulecbs.database.windows.net",
   "authentication": {
     "type": "default",
     "options": {
